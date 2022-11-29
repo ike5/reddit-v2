@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Box, Plane } from "@react-three/drei";
-import "../src/index.css"
+import { Box, OrbitControls, Plane } from "@react-three/drei";
+import "../src/index.css";
 
 const Scene = () => {
   const boxRef = useRef();
@@ -60,6 +60,7 @@ export default function App() {
         position={[-1, 1, 1]}
       /> */}
       <Scene />
+      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
     </Canvas>
   );
 }
