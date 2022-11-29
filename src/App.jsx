@@ -33,11 +33,8 @@ export default function App() {
   return (
     // shadowMap prop must be set to true on the Canvas. And
     // you must set castShadow to true on all lights casting shadows.
-    <Canvas
-      colorManagement
-      shadowMap
-      camera={{ position: [-3, 2, 5], fov: 90 }}
-    >
+    <Canvas shadows camera={{ position: [-3, 2, 5], fov: 90 }}>
+      
       <fog attach="fog" args={["white", 0, 40]} />
       <ambientLight intensity={0.1} />
       <directionalLight
