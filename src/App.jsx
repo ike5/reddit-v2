@@ -1,10 +1,18 @@
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Plane, RoundedBox, Sky, PerformanceMonitor } from "@react-three/drei";
-import { useSpring } from "@react-spring/core";
+import {
+  OrbitControls,
+  Plane,
+  RoundedBox,
+  Sky,
+  PerformanceMonitor,
+  Instances,
+  Instance,
+} from "@react-three/drei";
 import { MathUtils } from "three";
 import "../src/index.css";
 import { RigidBody, CuboidCollider, Physics, Debug } from "@react-three/rapier";
+import { Howl } from "howler";
 
 function setRandomPositions() {
   let pos = {};
@@ -24,10 +32,15 @@ for (let i = 0; i < 100; i++) {
   );
 }
 
+
 function Scene({ position }) {
   const boxRef = useRef();
   const bodyRef = useRef();
   const [disabled, setDisabled] = useState(false);
+  
+  let audio_ping = new Howl({
+    src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
+  });
 
   return (
     <RigidBody
@@ -37,15 +50,15 @@ function Scene({ position }) {
       position={[position.x, position.y, position.z]}
     >
       <RoundedBox
-        castShadow
         ref={boxRef}
-        onClick={(event) => {
-          setDisabled(true);
+        onClick={() => {
+          setDisabled(!disabled);
+          audio_ping.play();
           console.log("setting disabled");
         }}
       >
         <meshStandardMaterial
-          attach="material"
+          // attach="material"
           color={disabled ? "gray" : "orange"}
         />
       </RoundedBox>
@@ -54,19 +67,22 @@ function Scene({ position }) {
 }
 
 export default function App(props) {
-  const [dpr, setDpr] = useState(1.5)
+  const [dpr, setDpr] = useState(1.5);
   return (
     <Canvas dpr={dpr} shadows camera={{ position: [15, 5, 5], fov: 75 }}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
-      <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitor>
+      <PerformanceMonitor
+        onIncline={() => setDpr(2)}
+        onDecline={() => setDpr(1)}
+      ></PerformanceMonitor>
       <ambientLight intensity={0.5} />
-        <directionalLight
-          intensity={0.5}
-          castShadow
-          position={[1, 3, 2]}
-          shadow-mapSize-height={512}
-          shadow-mapSize-width={512}
-        />
+      <directionalLight
+        intensity={0.5}
+        castShadow
+        position={[1, 3, 2]}
+        shadow-mapSize-height={512}
+        shadow-mapSize-width={512}
+      />
       <Sky
         distance={450000}
         sunPosition={[0, 1, 0]}
@@ -77,7 +93,9 @@ export default function App(props) {
       <Suspense>
         <Physics>
           {/* <Debug /> */}
+
           {rows}
+
           <CuboidCollider
             position={[0, 0, 0]}
             args={[100, 0, 100]}
