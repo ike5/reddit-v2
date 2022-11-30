@@ -4,7 +4,7 @@ import { Box, OrbitControls, Plane, RoundedBox } from "@react-three/drei";
 import { useSpring } from "@react-spring/core";
 import { MathUtils } from "three";
 import "../src/index.css";
-import { RigidBody, CuboidCollider, Physics } from "@react-three/rapier";
+import { RigidBody, CuboidCollider, Physics, Debug } from "@react-three/rapier";
 
 function setRandomPositions() {
   let pos = {};
@@ -29,7 +29,7 @@ function Scene({ position }) {
     <RigidBody
       ref={bodyRef}
       colliders={"cuboid"}
-      restitution={0.1}
+      restitution={0.5}
       position={[position.x, position.y, position.z]}
     >
       <RoundedBox
@@ -37,7 +37,7 @@ function Scene({ position }) {
         ref={boxRef}
         onClick={(event) => {
           setDisabled(true);
-          console.log("setting disabled")
+          console.log("setting disabled");
         }}
       >
         <meshStandardMaterial
@@ -63,6 +63,14 @@ export default function App() {
       />
       <Suspense>
         <Physics>
+          <Debug />
+          {rows}
+          <CuboidCollider
+            position={[0, 0, 0]}
+            args={[100, 0, 100]}
+            color={"red"}
+          />
+
           <Plane
             receiveShadow
             rotation={[-Math.PI / 2, 0, 0]}
@@ -71,12 +79,7 @@ export default function App() {
           >
             <meshStandardMaterial attach="material" color="white" />
           </Plane>
-          {rows}
-          <CuboidCollider
-            position={[0, 0, 0]}
-            args={[20, 0, 20]}
-            color={"red"}
-          ></CuboidCollider>
+
         </Physics>
       </Suspense>
       <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
