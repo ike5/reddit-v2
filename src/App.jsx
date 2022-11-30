@@ -39,6 +39,7 @@ const Scene = () => {
         colliders={"cuboid"}
         restitution={0.1}
         position={[pos.x, pos.y, pos.z]}
+        key={i}
       >
         <Box castShadow receiveShadow ref={boxRef} key={i}>
           <meshStandardMaterial
