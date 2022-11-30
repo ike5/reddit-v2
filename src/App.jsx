@@ -2,26 +2,51 @@ import React, { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, OrbitControls, Plane } from "@react-three/drei";
 import { useSpring } from "@react-spring/core";
+import { MathUtils } from "three";
 import "../src/index.css";
 import { RigidBody, CuboidCollider, Physics } from "@react-three/rapier";
+
+let pos = {
+  x: 0,
+  y: 0,
+  z: 0,
+};
+
+function setRandomPositions() {
+  pos.x = MathUtils.randFloat(-5, 5);
+  pos.y = MathUtils.randFloat(50, 10);
+  pos.z = MathUtils.randFloat(-5, 5);
+  return pos;
+}
 
 const Scene = () => {
   const boxRef = useRef();
   const bodyRef = useRef();
-  return (
-    <group>
+
+  let rows = [];
+  for (let i = 0; i < 100; i++) {
+    setRandomPositions();
+    rows.push(
       <RigidBody
         ref={bodyRef}
         colliders={"cuboid"}
-        restitution={1.1}
-        position={[0, 0, 0]}
+        restitution={0.1}
+        // position={[0, 0, 0]}
+        position={[pos.x, pos.y, pos.z]}
       >
-        <Box castShadow receiveShadow ref={boxRef} position={[0, 0, 0]}>
+        <Box
+          castShadow
+          receiveShadow
+          ref={boxRef}
+          key={i}
+        >
           <meshStandardMaterial attach="material" color="orange" />
         </Box>
       </RigidBody>
-    </group>
-  );
+    );
+  }
+
+  return <group>{rows}</group>;
 };
 
 export default function App() {
