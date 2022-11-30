@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Plane, RoundedBox, Sky } from "@react-three/drei";
+import { OrbitControls, Plane, RoundedBox, Sky, PerformanceMonitor } from "@react-three/drei";
 import { useSpring } from "@react-spring/core";
 import { MathUtils } from "three";
 import "../src/index.css";
@@ -54,9 +54,11 @@ function Scene({ position }) {
 }
 
 export default function App(props) {
+  const [dpr, setDpr] = useState(1.5)
   return (
-    <Canvas shadows camera={{ position: [15, 5, 5], fov: 75 }}>
+    <Canvas dpr={dpr} shadows camera={{ position: [15, 5, 5], fov: 75 }}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
+      <PerformanceMonitor onIncline={() => setDpr(2)} onDecline={() => setDpr(1)} ></PerformanceMonitor>
       <ambientLight intensity={0.5} />
         <directionalLight
           intensity={0.5}
