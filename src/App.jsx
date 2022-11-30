@@ -58,7 +58,7 @@ const Scene = () => {
 
 export default function App() {
   return (
-    <Canvas shadows camera={{ position: [-3, 2, 5], fov: 90 }}>
+    <Canvas shadows camera={{position: [15,5,5], fov: 75 }}>
       <Suspense>
         <Physics>
           <fog attach="fog" args={["white", 0, 40]} />
