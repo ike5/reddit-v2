@@ -31,24 +31,25 @@ for (let i = 0; i < 100; i++) {
     </mesh>
   );
 }
-
+let audio_ping = new Howl({
+  src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
+});
 
 function Scene({ position }) {
   const boxRef = useRef();
   const bodyRef = useRef();
   const [disabled, setDisabled] = useState(false);
-  
-  let audio_ping = new Howl({
-    src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
-  });
 
   return (
     <RigidBody
+      onContactForce={(payload) => {
+        console.log(`The total force generated was: ${payload.totalForce}`);
+      }}
+    
       ref={bodyRef}
       colliders={"cuboid"}
       restitution={0.5}
-      position={[position.x, position.y, position.z]}
-    >
+      position={[position.x, position.y, position.z]}>
       <RoundedBox
         ref={boxRef}
         onClick={() => {
@@ -69,12 +70,9 @@ function Scene({ position }) {
 export default function App(props) {
   const [dpr, setDpr] = useState(1.5);
   return (
-    <Canvas dpr={dpr} shadows camera={{ position: [15, 5, 5], fov: 75 }}>
+    <Canvas shadows  camera={{ position: [15, 5, 5], fov: 75 }}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
-      <PerformanceMonitor
-        onIncline={() => setDpr(2)}
-        onDecline={() => setDpr(1)}
-      ></PerformanceMonitor>
+     
       <ambientLight intensity={0.5} />
       <directionalLight
         intensity={0.5}
