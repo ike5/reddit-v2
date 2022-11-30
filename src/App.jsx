@@ -25,11 +25,7 @@ function setRandomPositions() {
 let rows = [];
 for (let i = 0; i < 100; i++) {
   const p = setRandomPositions();
-  rows.push(
-    <mesh castShadow key={i}>
-      <Scene position={p} />
-    </mesh>
-  );
+  rows.push(<Scene position={p} key={i} />);
 }
 let audio_ping = new Howl({
   src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
@@ -41,38 +37,37 @@ function Scene({ position }) {
   const [disabled, setDisabled] = useState(false);
 
   return (
-    <RigidBody
-      onContactForce={(payload) => {
-        console.log(`The total force generated was: ${payload.totalForce}`);
-      }}
-    
-      ref={bodyRef}
-      colliders={"cuboid"}
-      restitution={0.5}
-      position={[position.x, position.y, position.z]}>
-      <RoundedBox
-        ref={boxRef}
-        onClick={() => {
-          setDisabled(!disabled);
-          audio_ping.play();
-          console.log("setting disabled");
-        }}
+    <>
+      <RigidBody
+        ref={bodyRef}
+        colliders={"cuboid"}
+        restitution={0.5}
+        position={[position.x, position.y, position.z]}
       >
-        <meshStandardMaterial
-          // attach="material"
-          color={disabled ? "gray" : "orange"}
-        />
-      </RoundedBox>
-    </RigidBody>
+        <RoundedBox
+          ref={boxRef}
+          onClick={() => {
+            setDisabled(!disabled);
+            audio_ping.play();
+            console.log("setting disabled");
+          }}
+        >
+          <meshStandardMaterial
+            // attach="material"
+            color={disabled ? "gray" : "orange"}
+          />
+        </RoundedBox>
+      </RigidBody>
+    </>
   );
 }
 
 export default function App(props) {
   const [dpr, setDpr] = useState(1.5);
   return (
-    <Canvas shadows  camera={{ position: [15, 5, 5], fov: 75 }}>
+    <Canvas shadows camera={{ position: [15, 5, 5], fov: 75 }}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
-     
+
       <ambientLight intensity={0.5} />
       <directionalLight
         intensity={0.5}
@@ -91,15 +86,7 @@ export default function App(props) {
       <Suspense>
         <Physics>
           {/* <Debug /> */}
-
           {rows}
-
-          <CuboidCollider
-            position={[0, 0, 0]}
-            args={[100, 0, 100]}
-            color={"red"}
-          />
-
           <Plane
             receiveShadow
             rotation={[-Math.PI / 2, 0, 0]}
@@ -108,6 +95,11 @@ export default function App(props) {
           >
             <meshStandardMaterial attach="material" color="white" />
           </Plane>
+          <CuboidCollider
+            position={[0, 0, 0]}
+            args={[100, 0, 100]}
+            color={"red"}
+          />
         </Physics>
       </Suspense>
       <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
