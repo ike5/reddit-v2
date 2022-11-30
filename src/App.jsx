@@ -32,7 +32,13 @@ function Scene({ position }) {
       restitution={0.1}
       position={[position.x, position.y, position.z]}
     >
-      <Box castShadow ref={boxRef}>
+      <Box
+        castShadow
+        ref={boxRef}
+        onClick={(event) => {
+          console.log(event)
+        }}
+      >
         <meshStandardMaterial
           transparent={disabled ? true : false}
           opacity={disabled ? 0.1 : 1}
