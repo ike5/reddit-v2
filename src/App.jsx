@@ -36,14 +36,13 @@ function Scene({ position }) {
         castShadow
         ref={boxRef}
         onClick={(event) => {
-          console.log(event)
+          setDisabled(true);
+          console.log("setting disabled")
         }}
       >
         <meshStandardMaterial
-          transparent={disabled ? true : false}
-          opacity={disabled ? 0.1 : 1}
           attach="material"
-          color="orange"
+          color={disabled ? "gray" : "orange"}
         />
       </RoundedBox>
     </RigidBody>
@@ -59,8 +58,8 @@ export default function App() {
         intensity={1}
         castShadow
         position={[1, 3, 2]}
-        // shadow-mapSize-height={512}
-        // shadow-mapSize-width={512}
+        shadow-mapSize-height={512}
+        shadow-mapSize-width={512}
       />
       <Suspense>
         <Physics>
