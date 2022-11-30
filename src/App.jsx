@@ -1,6 +1,6 @@
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Box, OrbitControls, Plane } from "@react-three/drei";
+import { Box, OrbitControls, Plane, RoundedBox } from "@react-three/drei";
 import { useSpring } from "@react-spring/core";
 import { MathUtils } from "three";
 import "../src/index.css";
@@ -32,7 +32,7 @@ function Scene({ position }) {
       restitution={0.1}
       position={[position.x, position.y, position.z]}
     >
-      <Box
+      <RoundedBox
         castShadow
         ref={boxRef}
         onClick={(event) => {
@@ -45,7 +45,7 @@ function Scene({ position }) {
           attach="material"
           color="orange"
         />
-      </Box>
+      </RoundedBox>
     </RigidBody>
   );
 }
