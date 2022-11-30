@@ -92,7 +92,7 @@ export default function App() {
           {rows}
         </Physics>
       </Suspense>
-      <OrbitControls autoRotate autoRotateSpeed={0.8} />
+      <OrbitControls autoRotate autoRotateSpeed={0.2} />
     </Canvas>
   );
 }
