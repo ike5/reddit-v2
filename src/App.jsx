@@ -2,66 +2,64 @@ import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
   OrbitControls,
-  Plane,
-  RoundedBox,
   Sky,
-  PerformanceMonitor,
   Instances,
   Instance,
-  Cloud
+  Cloud,
 } from "@react-three/drei";
 import { MathUtils } from "three";
 import "../src/index.css";
-import { RigidBody, CuboidCollider, Physics, Debug } from "@react-three/rapier";
 import { Howl } from "howler";
+import { Physics, useBox, usePlane } from "@react-three/cannon";
 
 function setRandomPositions() {
-  let pos = {};
-  pos.x = MathUtils.randFloat(-5, 5);
-  pos.y = MathUtils.randFloat(50, 10);
-  pos.z = MathUtils.randFloat(-5, 5);
-  return pos;
+  return [
+    MathUtils.randFloat(-10, 10),
+    MathUtils.randFloat(-10, 10),
+    MathUtils.randFloat(-10, 10),
+  ];
+}
+
+function setRandomRotation() {
+  return [
+    MathUtils.randFloat(0, 1),
+    MathUtils.randFloat(0, 1),
+    MathUtils.randFloat(0, 1),
+  ];
 }
 
 let rows = [];
 for (let i = 0; i < 100; i++) {
   const p = setRandomPositions();
-  rows.push(<Scene position={p} key={i} />);
+  rows.push(<Cube position={p} key={i} />);
 }
 let audio_ping = new Howl({
   src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
 });
 
-function Scene({ position }) {
-  const boxRef = useRef();
-  const bodyRef = useRef();
+function Cube(props) {
+  const [ref, api] = useBox(() => ({ mass: 2, ...props }));
   const [disabled, setDisabled] = useState(false);
 
   return (
-    <>
-      <RigidBody
-        ref={bodyRef}
-        colliders={"cuboid"}
-        restitution={0.5}
-        position={[position.x, position.y, position.z]}
-      >
-        <RoundedBox
-          ref={boxRef}
-          onClick={() => {
-            setDisabled(!disabled);
-            audio_ping.play();
-            console.log("setting disabled");
-          }}
-        >
-          <meshStandardMaterial
-            // attach="material"
-            color={disabled ? "gray" : "orange"}
-          />
-        </RoundedBox>
-      </RigidBody>
-    </>
+    <mesh onClick={() => {
+      setDisabled(true);
+      audio_ping.play();
+    }} castShadow ref={ref}>
+      <boxGeometry args={ [1, 1, 1]}/>
+      <meshStandardMaterial color={disabled ? "gray" : "orange"} />
+    </mesh>
   );
 }
+
+// function Plane(props) {
+//   const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }));
+//   return (
+//     <mesh receiveShadow ref={ref}>
+//       <planeGeometry args={[100, 100]} />
+//     </mesh>
+//   );
+// }
 
 function Clouds() {
   return (
@@ -73,13 +71,12 @@ function Clouds() {
       <Cloud position={[-10, -6, 15]} speed={0.2} opacity={0.3} />
       <Cloud position={[10, 6, 10]} speed={0.2} opacity={0.25} />
     </group>
-  )
+  );
 }
 
 export default function App() {
-  const [dpr, setDpr] = useState(1.5);
   return (
-    <Canvas shadows camera={{ position: [15, 5, 5], fov: 75 }}>
+    <Canvas shadows camera={{ position: [-2, 0, 20], fov: 60}}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
 
       <ambientLight intensity={0.5} />
@@ -90,28 +87,14 @@ export default function App() {
         shadow-mapSize-height={512}
         shadow-mapSize-width={512}
       />
-      <Sky />
+      <Sky sunPosition={[1, 3, 2]} />
       <Clouds />
       <Suspense>
-        <Physics>
-          {/* <Debug /> */}
+        <Physics gravity={[0, 0, 0]}>
           {rows}
-          <Plane
-            receiveShadow
-            rotation={[-Math.PI / 2, 0, 0]}
-            position={[0, 0, 0]}
-            args={[1000, 1000]}
-          >
-            <meshStandardMaterial attach="material" color="white" />
-          </Plane>
-          <CuboidCollider
-            position={[0, 0, 0]}
-            args={[100, 0, 100]}
-            color={"red"}
-          />
         </Physics>
       </Suspense>
-      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} autoRotate autoRotateSpeed={0.8} />
+      <OrbitControls autoRotate autoRotateSpeed={0.8} />
     </Canvas>
   );
 }
