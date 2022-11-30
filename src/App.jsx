@@ -1,63 +1,60 @@
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, OrbitControls, Plane } from "@react-three/drei";
+import { useSpring } from "@react-spring/core";
 import "../src/index.css";
+import { RigidBody, CuboidCollider, Physics } from "@react-three/rapier";
 
 const Scene = () => {
   const boxRef = useRef();
-  useFrame(() => {
-    boxRef.current.rotation.y += 0.004;
-    boxRef.current.rotation.x += 0.004;
-    boxRef.current.rotation.z += 0.004;
-  });
-  // Set receiveShadow on any mesh that should be in shadow,
-  // and castShadow on any mesh that should create a shadow.
+  const bodyRef = useRef();
   return (
     <group>
-      <Box castShadow receiveShadow ref={boxRef} position={[0, 0.5, 0]}>
-        <meshStandardMaterial attach="material" color="white" />
-      </Box>
-      <Plane
-        receiveShadow
-        rotation={[-Math.PI / 2, 0, 0]}
-        position={[0, -1, 0]}
-        args={[1000, 1000]}
+      <RigidBody
+        ref={bodyRef}
+        colliders={"cuboid"}
+        restitution={1.1}
+        position={[0, 0, 0]}
       >
-        <meshStandardMaterial attach="material" color="white" />
-      </Plane>
+        <Box castShadow receiveShadow ref={boxRef} position={[0, 0, 0]}>
+          <meshStandardMaterial attach="material" color="orange" />
+        </Box>
+      </RigidBody>
     </group>
   );
 };
 
 export default function App() {
   return (
-    // shadowMap prop must be set to true on the Canvas. And
-    // you must set castShadow to true on all lights casting shadows.
     <Canvas shadows camera={{ position: [-3, 2, 5], fov: 90 }}>
-      
-      <fog attach="fog" args={["white", 0, 40]} />
-      <ambientLight intensity={0.1} />
-      <directionalLight
-        intensity={0.5}
-        castShadow
-        shadow-mapSize-height={512}
-        shadow-mapSize-width={512}
-      />
-      {/* <pointLight
-        castShadow
-        intensity={0.2}
-        args={[0xff0000, 1, 100]}
-        position={[1, 1, 1]}
-      />
-
-      <spotLight
-        castShadow
-        intensity={1}
-        args={["blue", 1, 100]}
-        position={[-1, 1, 1]}
-      /> */}
-      <Scene />
-      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
+      <Suspense>
+        <Physics>
+          <fog attach="fog" args={["white", 0, 40]} />
+          <ambientLight intensity={0.5} />
+          <directionalLight
+            intensity={0.7}
+            castShadow
+            position={[1, 3, 2]}
+            shadow-mapSize-height={512}
+            shadow-mapSize-width={512}
+          />
+          <Plane
+            receiveShadow
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, 0, 0]}
+            args={[1000, 1000]}
+          >
+            <meshStandardMaterial attach="material" color="white" />
+          </Plane>
+          <Scene />
+          <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
+          <CuboidCollider
+            position={[0, 0, 0]}
+            args={[20, 0, 20]}
+            color={"red"}
+          ></CuboidCollider>
+        </Physics>
+      </Suspense>
     </Canvas>
   );
 }
