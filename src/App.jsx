@@ -111,7 +111,7 @@ export default function App() {
           />
         </Physics>
       </Suspense>
-      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} />
+      <OrbitControls minPolarAngle={0} maxPolarAngle={Math.PI / 2.1} autoRotate autoRotateSpeed={0.8} />
     </Canvas>
   );
 }
