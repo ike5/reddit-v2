@@ -1,4 +1,4 @@
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Box, OrbitControls, Plane } from "@react-three/drei";
 import { useSpring } from "@react-spring/core";
@@ -22,6 +22,13 @@ function setRandomPositions() {
 const Scene = () => {
   const boxRef = useRef();
   const bodyRef = useRef();
+  const [disabled, setDisabled] = useState(false);
+
+  // // Provides bounce when clicked
+  // const { scale } = useSpring({
+  //   scale: active ? 1.5 : 1,
+  //   config: config.wobbly,
+  // });
 
   let rows = [];
   for (let i = 0; i < 100; i++) {
@@ -31,16 +38,15 @@ const Scene = () => {
         ref={bodyRef}
         colliders={"cuboid"}
         restitution={0.1}
-        // position={[0, 0, 0]}
         position={[pos.x, pos.y, pos.z]}
       >
-        <Box
-          castShadow
-          receiveShadow
-          ref={boxRef}
-          key={i}
-        >
-          <meshStandardMaterial attach="material" color="orange" />
+        <Box castShadow receiveShadow ref={boxRef} key={i}>
+          <meshStandardMaterial
+            transparent={disabled ? true : false}
+            opacity={disabled ? 0.1 : 1}
+            attach="material"
+            color="orange"
+          />
         </Box>
       </RigidBody>
     );
