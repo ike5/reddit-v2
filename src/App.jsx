@@ -11,6 +11,14 @@ import { MathUtils } from "three";
 import "../src/index.css";
 import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
+import { motion } from "framer-motion";
+import Modal from "./components/Modal/index";
+
+const modal = {
+  modalOpen: false,
+};
+const close = () => (modal.modalOpen = false);
+const open = () => (modal.modalOpen = true);
 
 function setRandomPositions() {
   return [
@@ -42,24 +50,20 @@ function Cube(props) {
   const [disabled, setDisabled] = useState(false);
 
   return (
-    <mesh onClick={() => {
-      setDisabled(true);
-      audio_ping.play();
-    }} castShadow ref={ref}>
-      <boxGeometry args={ [1, 1, 1]}/>
+    <mesh
+      onClick={() => {
+        modal.modalOpen ? close() : open();
+        setDisabled(true);
+        audio_ping.play();
+      }}
+      castShadow
+      ref={ref}
+    >
+      <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color={disabled ? "gray" : "orange"} />
     </mesh>
   );
 }
-
-// function Plane(props) {
-//   const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }));
-//   return (
-//     <mesh receiveShadow ref={ref}>
-//       <planeGeometry args={[100, 100]} />
-//     </mesh>
-//   );
-// }
 
 function Clouds() {
   return (
@@ -76,23 +80,22 @@ function Clouds() {
 
 export default function App() {
   return (
-    <Canvas shadows camera={{ position: [-2, 0, 20], fov: 60}}>
-      {/* <fog attach="fog" args={["white", 10, 40]} /> */}
+    <>
+      <Canvas shadows camera={{ position: [-2, 0, 20], fov: 60 }}>
+        {/* <fog attach="fog" args={["white", 10, 40]} /> */}
 
-      <ambientLight intensity={0.4} />
-      <directionalLight
-        intensity={0.7}
-        castShadow
-        position={[1, 3, 2]}
-      />
-      <Sky sunPosition={[1, 3, 2]} />
-      <Clouds />
-      <Suspense>
-        <Physics gravity={[0, 0, 0]}>
-          {rows}
-        </Physics>
-      </Suspense>
-      <OrbitControls autoRotate autoRotateSpeed={0.2} />
-    </Canvas>
+        <ambientLight intensity={0.4} />
+        <directionalLight intensity={0.7} castShadow position={[1, 3, 2]} />
+        <Sky sunPosition={[1, 3, 2]} />
+        <Clouds />
+        <Suspense>
+          <Physics gravity={[0, 0, 0]}>{rows}</Physics>
+        </Suspense>
+        <OrbitControls autoRotate autoRotateSpeed={0.2} />
+      </Canvas>
+      {modal.modalOpen && (
+        <Modal modalOpen={modal.modalOpen} handleClose={close} />
+      )}
+    </>
   );
 }
