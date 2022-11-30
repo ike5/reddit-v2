@@ -8,6 +8,7 @@ import {
   PerformanceMonitor,
   Instances,
   Instance,
+  Cloud
 } from "@react-three/drei";
 import { MathUtils } from "three";
 import "../src/index.css";
@@ -62,7 +63,20 @@ function Scene({ position }) {
   );
 }
 
-export default function App(props) {
+function Clouds() {
+  return (
+    <group>
+      <Cloud position={[-10, -6, -10]} speed={0.2} opacity={0.4} />
+      <Cloud position={[10, 6, -15]} speed={0.2} opacity={0.25} />
+      <Cloud position={[0, 10, 0]} speed={0.2} opacity={0.2} />
+      <Cloud position={[0, -10, 0]} speed={0.2} opacity={0.2} />
+      <Cloud position={[-10, -6, 15]} speed={0.2} opacity={0.3} />
+      <Cloud position={[10, 6, 10]} speed={0.2} opacity={0.25} />
+    </group>
+  )
+}
+
+export default function App() {
   const [dpr, setDpr] = useState(1.5);
   return (
     <Canvas shadows camera={{ position: [15, 5, 5], fov: 75 }}>
@@ -76,13 +90,8 @@ export default function App(props) {
         shadow-mapSize-height={512}
         shadow-mapSize-width={512}
       />
-      <Sky
-        distance={450000}
-        sunPosition={[0, 1, 0]}
-        inclination={0}
-        azimuth={0.25}
-        {...props}
-      />
+      <Sky />
+      <Clouds />
       <Suspense>
         <Physics>
           {/* <Debug /> */}
