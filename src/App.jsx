@@ -79,13 +79,11 @@ export default function App() {
     <Canvas shadows camera={{ position: [-2, 0, 20], fov: 60}}>
       {/* <fog attach="fog" args={["white", 10, 40]} /> */}
 
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.4} />
       <directionalLight
-        intensity={0.5}
+        intensity={0.7}
         castShadow
         position={[1, 3, 2]}
-        shadow-mapSize-height={512}
-        shadow-mapSize-width={512}
       />
       <Sky sunPosition={[1, 3, 2]} />
       <Clouds />
