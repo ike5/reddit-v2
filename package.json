@@ -14,6 +14,7 @@
     "@react-three/drei": "^9.45.1",
     "@react-three/fiber": "^8.9.1",
     "@react-three/rapier": "^0.11.0",
+    "daisyui": "^2.42.1",
     "framer-motion": "^7.6.15",
     "howler": "^2.2.3",
     "react": "^18.2.0",
