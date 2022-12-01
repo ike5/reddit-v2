@@ -46,35 +46,25 @@ body {
   align-items: center;
 }
 
-.container {
+/* .container {
   display: grid;
-  grid-template-columns: 25vw 25vw 25vw 25vw;
-  grid-template-rows: 1fr 90vh 4fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 10vh 70vh 20vh; 
+} */
 
-  /* grid-template-areas:
-    "nav nav space side"
-    "main main space side"
-    "footer footer footer footer"; */
-}
-
-.nav {
-  grid-column: 1 /5;
+/* .nav {
+  grid-column: 1 / 7;
   grid-row: 1 / 2;
   background-color: blanchedalmond;
 }
-.sidebar {
-  grid-column: 4 / 5;
-  grid-row: 2 /3;
-  background-color: aquamarine;
-}
+
 .main {
-  grid-column: 1 /4;
+  grid-column: 1 / 7;
   grid-row: 2 / 3;
 }
 
 .footer {
-  grid-column: 1 / 5;
+  grid-column: 1 / 7;
   grid-row: 3/4;
   background-color: darkgray;
-}
-
+} */
