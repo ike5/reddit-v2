@@ -7,7 +7,7 @@ function Grid() {
       <div className="item-1">
         <App />
       </div>
-      <div className="item-2"></div>
+      <div className="item-2"><App /></div>
     </div>
   );
 }
