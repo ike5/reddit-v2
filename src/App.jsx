@@ -83,7 +83,11 @@ function Clouds() {
 export default function App() {
   return (
     <>
-      <Canvas shadows camera={{ position: [-2, 0, 20], fov: 60 }}>
+      <Canvas
+        className="rounded-lg drop-shadow-2xl"
+        shadows
+        camera={{ position: [-2, 0, 20], fov: 60 }}
+      >
         {/* <fog attach="fog" args={["white", 10, 40]} /> */}
 
         <ambientLight intensity={0.4} />
