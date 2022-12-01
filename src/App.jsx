@@ -46,7 +46,7 @@ let audio_ping = new Howl({
 });
 
 function Cube(props) {
-  const [ref, api] = useBox(() => ({ mass: 2, ...props }));
+  const [ref, api] = useBox(() => ({ mass: 1, ...props }));
   const [disabled, setDisabled] = useState(false);
 
   return (
@@ -56,6 +56,8 @@ function Cube(props) {
         setDisabled(true);
         audio_ping.play();
       }}
+      // onPointerOver={(e) => setHover(true)}
+      // onPointerOut={(e) => setHover(false)}
       castShadow
       ref={ref}
     >
@@ -93,6 +95,7 @@ export default function App() {
         </Suspense>
         <OrbitControls autoRotate autoRotateSpeed={0.2} />
       </Canvas>
+
       {modal.modalOpen && (
         <Modal modalOpen={modal.modalOpen} handleClose={close} />
       )}
