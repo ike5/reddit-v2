@@ -42,7 +42,7 @@ for (let i = 0; i < 100; i++) {
   rows.push(<Cube position={p} key={i} />);
 }
 let audio_ping = new Howl({
-  src: "src/assets/mixkit-small-hit-in-a-game-2072.wav",
+  src: "https://cdn.freesound.org/previews/335/335908_5865517-lq.mp3",
 });
 
 function Cube(props) {
