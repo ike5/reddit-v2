@@ -41,8 +41,11 @@ for (let i = 0; i < 100; i++) {
   const p = setRandomPositions();
   rows.push(<Cube position={p} key={i} />);
 }
+
+// Credit to: https://freesound.org/people/LittleRainySeasons/
 let audio_ping = new Howl({
   src: "https://cdn.freesound.org/previews/335/335908_5865517-lq.mp3",
+  volume: 0.5,
 });
 
 function Cube(props) {
@@ -62,7 +65,11 @@ function Cube(props) {
       ref={ref}
     >
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={disabled ? "gray" : "orange"} />
+      <meshStandardMaterial
+        transparent
+        opacity={disabled ? 0.5 : 1}
+        color={disabled ? "gray" : "orange"}
+      />
     </mesh>
   );
 }
