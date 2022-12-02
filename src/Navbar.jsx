@@ -7,15 +7,15 @@ function Navbar({ audio }) {
   let [play, setPlay] = useState(false);
 
   // Clear listener after first call.
-
-  // audio.once("load", function () {
-  //   audio.play();
-  // });
+  audio.once("load", function () {
+    setPlay(!play);
+    audio.play();
+  });
 
   // Fires when the sound finishes playing.
-  // audio.on("end", function () {
-  //   console.log("Finished!");
-  // });
+  audio.on("end", function () {
+    console.log("Finished!");
+  });
 
   return (
     <>
