@@ -140,7 +140,7 @@ export default function App() {
 
         <ambientLight intensity={0.4} />
         <directionalLight intensity={0.7} castShadow position={[1, 3, 2]} />
-        <Sky sunPosition={[1, 3, 2]} />
+        <Sky sunPosition={[1, 3, 2]}/>
         <Clouds />
         <Suspense>
           <Physics gravity={[0, 0, 0]}>{rows}</Physics>

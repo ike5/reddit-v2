@@ -11,14 +11,21 @@ function Grid() {
       "https://cdn.freesound.org/previews/477/477479_973833-lq.ogg",
     ],
     html5: true,
-    volume: 0.2,
+    volume: 0.5,
+    loop: true,
+  });
+
+  let audio_track = new Howl({
+    src: "https://cdn.pixabay.com/audio/2022/09/27/audio_2a84af0774.mp3",
+    html5: true,
+    volume: 0.5,
     loop: true,
   });
 
   return (
     <div className="my-container gap-4 place-content-center">
       <div className="navbar sticky top-0 z-50">
-        <Navbar audio={audio_sky} />
+        <Navbar audio={audio_track} />
       </div>
       <div className="main pl-2 pr-2">
         <App />
