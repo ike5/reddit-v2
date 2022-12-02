@@ -14,7 +14,7 @@ export class Navbar extends Component {
   }
 
   componentDidMount() {
-    // put fetch requests here
+    
   }
 
   render() {
