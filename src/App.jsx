@@ -84,7 +84,6 @@ let audio_sky = new Howl({
   ],
   html5: true,
 });
-audio_sky.play();
 
 // Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
 let audio_space = new Howl({
@@ -92,6 +91,7 @@ let audio_space = new Howl({
     "https://cdn.freesound.org/previews/190/190002_2210828-lq.mp3",
     "https://cdn.freesound.org/previews/190/190002_2210828-lq.ogg",
   ],
+  volume: 0.1,
 });
 audio_space.play();
 
@@ -140,6 +140,7 @@ export default function App() {
       <Canvas
         className="rounded-lg drop-shadow-2xl"
         shadows
+        onLoad={audio_sky.play()}
         camera={{ position: [-2, 0, 20], fov: 60 }}
       >
         {/* <fog attach="fog" args={["white", 10, 40]} /> */}
