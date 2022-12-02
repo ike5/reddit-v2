@@ -14,6 +14,9 @@ import { Physics, useBox, usePlane } from "@react-three/cannon";
 import { motion } from "framer-motion";
 import Modal from "./components/Modal/index";
 
+
+
+//TODO: Manage modal after clicking on box
 const modal = {
   modalOpen: false,
 };
@@ -28,6 +31,7 @@ function setRandomPositions() {
   ];
 }
 
+//TODO: Need to add rotations to each box
 function setRandomRotation() {
   return [
     MathUtils.randFloat(0, 1),

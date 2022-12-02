@@ -1,5 +1,6 @@
 import React from "react";
 import App from "./App";
+import Instances from "./Instances";
 import Navbar from "./Navbar";
 
 function Grid() {
@@ -9,7 +10,7 @@ function Grid() {
         <Navbar />
       </div>
       <div className="main pl-2 pr-2">
-        <App />
+        <Instances />
       </div>
     </div>
   );
