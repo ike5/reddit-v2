@@ -10,7 +10,7 @@ function Grid() {
         <Navbar />
       </div>
       <div className="main pl-2 pr-2">
-        <Instances />
+        <App />
       </div>
     </div>
   );
