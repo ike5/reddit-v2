@@ -1,3 +1,5 @@
+// <a href="https://www.flaticon.com/free-icons/play" title="play icons">Play icons created by Freepik - Flaticon</a>
+
 import React, { useEffect, useState } from "react";
 import Coffee from "./Coffee";
 
@@ -26,7 +28,18 @@ function Navbar({ audio }) {
               play ? audio.stop() : audio.play();
             }}
           >
-            {play ? "Play" : "Stop"}
+            {play ? (
+              "Stop"
+            ) : (
+              <div className="avatar">
+                <div className="w-8 rounded">
+                  <img
+                    src="src/assets/play-button-arrowhead.png"
+                    alt="Tailwind-CSS-Avatar-component"
+                  />
+                </div>
+              </div>
+            )}
           </a>
         </div>
         <div className="">
