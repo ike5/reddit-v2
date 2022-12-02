@@ -6,8 +6,7 @@ import Coffee from "./Coffee";
 function Navbar({ audio }) {
   let [play, setPlay] = useState(false);
 
-  // let audio_play = audio.play();
-  // let audio_stop = audio.stop();
+  
   return (
     <>
       <div className="navbar bg-base-100 shadow-md">
