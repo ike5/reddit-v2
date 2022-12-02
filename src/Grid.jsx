@@ -12,6 +12,7 @@ function Grid() {
     ],
     html5: true,
     volume: 0.2,
+    loop: true,
   });
 
   return (
