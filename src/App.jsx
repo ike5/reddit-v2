@@ -77,13 +77,7 @@ let audio_warning = new Howl({
   ],
 });
 
-let audio_sky = new Howl({
-  src: [
-    "https://cdn.freesound.org/previews/477/477479_973833-lq.mp3",
-    "https://cdn.freesound.org/previews/477/477479_973833-lq.ogg",
-  ],
-  html5: true,
-});
+
 
 // Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
 let audio_space = new Howl({
@@ -140,7 +134,6 @@ export default function App() {
       <Canvas
         className="rounded-lg drop-shadow-2xl"
         shadows
-        onLoad={audio_sky.play()}
         camera={{ position: [-2, 0, 20], fov: 60 }}
       >
         {/* <fog attach="fog" args={["white", 10, 40]} /> */}
