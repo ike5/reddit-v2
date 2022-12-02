@@ -91,7 +91,7 @@ let audio_space = new Howl({
     "https://cdn.freesound.org/previews/190/190002_2210828-lq.mp3",
     "https://cdn.freesound.org/previews/190/190002_2210828-lq.ogg",
   ],
-  volume: 0.1,
+  volume: 1,
 });
 audio_space.play();
 
