@@ -6,17 +6,6 @@ import Coffee from "./Coffee";
 function Navbar({ audio }) {
   let [play, setPlay] = useState(false);
 
-  // Clear listener after first call.
-  audio.once("load", function () {
-    setPlay(!play);
-    audio.play();
-  });
-
-  // Fires when the sound finishes playing.
-  audio.on("end", function () {
-    console.log("Finished!");
-  });
-
   return (
     <>
       <div className="navbar bg-base-100 shadow-md">
@@ -26,6 +15,18 @@ function Navbar({ audio }) {
             onClick={() => {
               setPlay(!play);
               play ? audio.stop() : audio.play();
+            }}
+            onLoad={() => {
+              // Clear listener after first call.
+              audio.once("load", function () {
+                setPlay(!play);
+                audio.play();
+              });
+
+              // Fires when the sound finishes playing.
+              audio.on("end", function () {
+                console.log("Finished!");
+              });
             }}
           >
             {play ? (
