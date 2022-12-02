@@ -32,7 +32,7 @@ function Navbar({ audio }) {
               <div className="avatar">
                 <div className="w-8 rounded">
                   <img
-                    src="src/assets/stop-button.png"
+                    src="src/assets/stop-svgrepo-com.svg"
                     alt="Tailwind-CSS-Avatar-component"
                   />
                 </div>
@@ -41,7 +41,7 @@ function Navbar({ audio }) {
               <div className="avatar">
                 <div className="w-8 rounded">
                   <img
-                    src="src/assets/play-button-arrowhead.png"
+                    src="src/assets/play-svgrepo-com.svg"
                     alt="Tailwind-CSS-Avatar-component"
                   />
                 </div>
