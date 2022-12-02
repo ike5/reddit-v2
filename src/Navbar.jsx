@@ -18,7 +18,6 @@ function Navbar({ audio }) {
               setPlay(!play);
               play ? audio.stop() : audio.play();
             }}
-            onLoad={() => {}}
           >
             {play ? (
               <div className="avatar">

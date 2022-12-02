@@ -39,6 +39,17 @@ function setRandomRotation() {
   ];
 }
 
+// (async function run() {
+//   const sub = "AskReddit";
+//   const requestOptions = { method: "GET" };
+//   const val = await fetch(
+//     `https://www.reddit.com/r/${sub}/comments.json?limit=2`,
+//     requestOptions
+//   );
+//   console.log(val);
+// }
+// )();
+
 let rows = [];
 for (let i = 0; i < 100; i++) {
   const p = setRandomPositions();
@@ -76,8 +87,6 @@ let audio_warning = new Howl({
     "https://cdn.freesound.org/previews/335/335586_5865517-lq.ogg",
   ],
 });
-
-
 
 // Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
 let audio_space = new Howl({
@@ -139,7 +148,7 @@ export default function App() {
 
         <ambientLight intensity={0.4} />
         <directionalLight intensity={0.7} castShadow position={[1, 3, 2]} />
-        <Sky sunPosition={[1, 3, 2]}/>
+        <Sky sunPosition={[1, 3, 2]} />
         <Clouds />
         <Suspense>
           <Physics gravity={[0, 0, 0]}>{rows}</Physics>
