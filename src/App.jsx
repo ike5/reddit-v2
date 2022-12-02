@@ -13,8 +13,7 @@ import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
 import { motion } from "framer-motion";
 import Modal from "./components/Modal/index";
-
-
+import userHowler from "./useHowler";
 
 //TODO: Manage modal after clicking on box
 const modal = {
@@ -48,9 +47,52 @@ for (let i = 0; i < 100; i++) {
 
 // Credit to: https://freesound.org/people/LittleRainySeasons/
 let audio_ping = new Howl({
-  src: "https://cdn.freesound.org/previews/335/335908_5865517-lq.mp3",
-  volume: 0.5,
+  src: [
+    "https://cdn.freesound.org/previews/335/335908_5865517-lq.mp3",
+    "https://cdn.freesound.org/previews/335/335908_5865517-lq.ogg",
+  ],
+  volume: 0.1,
 });
+
+let audio_p = () => {
+  userHowler({
+    src: [
+      "https://cdn.freesound.org/previews/345/345873_5865517-lq.mp3",
+      "https://cdn.freesound.org/previews/345/345873_5865517-lq.ogg",
+    ],
+  });
+};
+
+let audio_no = new Howl({
+  src: [
+    "https://cdn.freesound.org/previews/345/345873_5865517-lq.mp3",
+    "https://cdn.freesound.org/previews/345/345873_5865517-lq.ogg",
+  ],
+});
+
+let audio_warning = new Howl({
+  src: [
+    "https://cdn.freesound.org/previews/335/335586_5865517-lq.mp3",
+    "https://cdn.freesound.org/previews/335/335586_5865517-lq.ogg",
+  ],
+});
+
+let audio_sky = new Howl({
+  src: [
+    "https://cdn.freesound.org/previews/477/477479_973833-lq.mp3",
+    "https://cdn.freesound.org/previews/477/477479_973833-lq.ogg",
+  ],
+  html5: true,
+});
+
+// Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
+let audio_space = new Howl({
+  src: [
+    "https://cdn.freesound.org/previews/190/190002_2210828-lq.mp3",
+    "https://cdn.freesound.org/previews/190/190002_2210828-lq.ogg",
+  ],
+});
+audio_space.play();
 
 function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));
