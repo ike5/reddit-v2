@@ -1,5 +1,5 @@
 // <a href="https://www.flaticon.com/free-icons/play" title="play icons">Play icons created by Freepik - Flaticon</a>
-
+// <a href="https://www.flaticon.com/free-icons/stop-button" title="stop button icons">Stop button icons created by Pixel perfect - Flaticon</a>
 import React, { useEffect, useState } from "react";
 import Coffee from "./Coffee";
 
@@ -29,7 +29,14 @@ function Navbar({ audio }) {
             }}
           >
             {play ? (
-              "Stop"
+              <div className="avatar">
+                <div className="w-8 rounded">
+                  <img
+                    src="src/assets/stop-button.png"
+                    alt="Tailwind-CSS-Avatar-component"
+                  />
+                </div>
+              </div>
             ) : (
               <div className="avatar">
                 <div className="w-8 rounded">
