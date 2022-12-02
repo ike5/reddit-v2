@@ -29,19 +29,21 @@ function Navbar({ audio }) {
             }}
           >
             {play ? (
-              <div className="w-8 rounded">
-                <img
-                  src="src/assets/stop-svgrepo-com.svg"
-                  alt="Tailwind-CSS-Avatar-component"
-                />
-              </div>
+              // <div className="w-8 rounded">
+              //   <img
+              //     src="src/assets/stop-svgrepo-com.svg"
+              //     alt="Tailwind-CSS-Avatar-component"
+              //   />
+              // </div>
+              "Stop"
             ) : (
-              <div className="w-8 rounded">
-                <img
-                  src="src/assets/play-svgrepo-com.svg"
-                  alt="Tailwind-CSS-Avatar-component"
-                />
-              </div>
+              // <div className="w-8 rounded">
+              //   <img
+              //     src="src/assets/play-svgrepo-com.svg"
+              //     alt="Tailwind-CSS-Avatar-component"
+              //   />
+              // </div>
+              "Play"
             )}
           </a>
         </div>
