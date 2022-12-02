@@ -84,6 +84,7 @@ let audio_sky = new Howl({
   ],
   html5: true,
 });
+audio_sky.play();
 
 // Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
 let audio_space = new Howl({
