@@ -87,7 +87,6 @@ let audio_space = new Howl({
   ],
   volume: 1,
 });
-audio_space.play();
 
 function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));
