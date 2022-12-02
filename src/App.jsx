@@ -65,37 +65,6 @@ let audio_ping = new Howl({
   volume: 0.1,
 });
 
-let audio_p = () => {
-  userHowler({
-    src: [
-      "https://cdn.freesound.org/previews/345/345873_5865517-lq.mp3",
-      "https://cdn.freesound.org/previews/345/345873_5865517-lq.ogg",
-    ],
-  });
-};
-
-let audio_no = new Howl({
-  src: [
-    "https://cdn.freesound.org/previews/345/345873_5865517-lq.mp3",
-    "https://cdn.freesound.org/previews/345/345873_5865517-lq.ogg",
-  ],
-});
-
-let audio_warning = new Howl({
-  src: [
-    "https://cdn.freesound.org/previews/335/335586_5865517-lq.mp3",
-    "https://cdn.freesound.org/previews/335/335586_5865517-lq.ogg",
-  ],
-});
-
-// Attribute: https://freesound.org/people/Pchelovek1205/sounds/190002/
-let audio_space = new Howl({
-  src: [
-    "https://cdn.freesound.org/previews/190/190002_2210828-lq.mp3",
-    "https://cdn.freesound.org/previews/190/190002_2210828-lq.ogg",
-  ],
-  volume: 1,
-});
 
 function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));
@@ -108,8 +77,6 @@ function Cube(props) {
         setDisabled(true);
         audio_ping.play();
       }}
-      // onPointerOver={(e) => setHover(true)}
-      // onPointerOut={(e) => setHover(false)}
       castShadow
       ref={ref}
     >
