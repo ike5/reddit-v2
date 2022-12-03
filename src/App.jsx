@@ -1,4 +1,4 @@
-import React, { Suspense, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Sky, Cloud } from "@react-three/drei";
 import { MathUtils } from "three";
@@ -78,29 +78,33 @@ function Clouds() {
   );
 }
 
-export default function App() {
-  const [rows, setRows] = useState([])
-
-  async function init() {
-    const response = await fetch(
-      `https://www.reddit.com/r/AskReddit/comments.json?limit=2`
-    )
-      .then((res) => {
-        return res.json();
-      })
-      .catch((err) => {
-        console.log(err);
+function getFile(myCallback) {
+  let req = new XMLHttpRequest();
+  req.open("GET", "https://www.reddit.com/r/AskReddit/comments.json?limit=10");
+  req.onload = function () {
+    if (req.status == 200) {
+      let obj = JSON.parse(req.responseText);
+      let arr = [];
+      obj.data.children.map((children, index) => {
+        // console.log(children.data.link_title);
+        arr.push(<Cube position={setRandomPositions()} key={index}/>);
       });
+      myCallback(arr);
+    } else {
+      myCallback("Error: " + req.status);
+    }
+  };
+  req.send();
+}
 
-      console.table(response)
-    response.data.children.map((children, index) => {
-      // console.log(children.data.link_title);
-      const p = setRandomPositions();
-      rows[index] = <Cube position={p} key={index} />;
-    });
-  }
-  init();
+export default function App() {
+  const [rows, setRows] = useState();
 
+  useEffect(() => {
+    getFile(setRows);
+  }, []);
+
+  console.log(rows);
   return (
     <>
       <Canvas
@@ -115,7 +119,9 @@ export default function App() {
         <Sky sunPosition={[1, 3, 2]} />
         <Clouds />
         <Suspense>
-          <Physics gravity={[0, 0, 0]}>{rows}</Physics>
+          <Physics gravity={[0, 0, 0]}>
+            {rows}
+          </Physics>
         </Suspense>
         <OrbitControls autoRotate autoRotateSpeed={0.2} />
       </Canvas>
