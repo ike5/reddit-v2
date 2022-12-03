@@ -1,19 +1,11 @@
 import React, { Suspense, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import {
-  OrbitControls,
-  Sky,
-  Instances,
-  Instance,
-  Cloud,
-} from "@react-three/drei";
+import { OrbitControls, Sky, Cloud } from "@react-three/drei";
 import { MathUtils } from "three";
 import "../src/index.css";
 import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
-import { motion } from "framer-motion";
 import Modal from "./components/Modal/index";
-import userHowler from "./useHowler";
 
 //TODO: Manage modal after clicking on box
 const modal = {
@@ -39,22 +31,28 @@ function setRandomRotation() {
   ];
 }
 
-// (async function run() {
-//   const sub = "AskReddit";
-//   const requestOptions = { method: "GET" };
-//   const val = await fetch(
-//     `https://www.reddit.com/r/${sub}/comments.json?limit=2`,
-//     requestOptions
-//   );
-//   console.log(val);
-// }
-// )();
-
 let rows = [];
-for (let i = 0; i < 100; i++) {
-  const p = setRandomPositions();
-  rows.push(<Cube position={p} key={i} />);
+async function init() {
+  const response = await fetch(
+    `https://www.reddit.com/r/AskReddit/comments.json?limit=100`
+  )
+    .then((res) => {
+      return res.json();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+
+  response.data.children.map((children, index) => {
+    console.log(children.data.link_title)
+    const p = setRandomPositions();
+    rows.push(<Cube position={p} key={index} />);
+  });
+  console.log(response);
+  return response;
 }
+init();
+
 
 // Credit to: https://freesound.org/people/LittleRainySeasons/
 let audio_ping = new Howl({
@@ -64,7 +62,6 @@ let audio_ping = new Howl({
   ],
   volume: 0.1,
 });
-
 
 function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));

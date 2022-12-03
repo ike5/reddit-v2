@@ -2,6 +2,7 @@
 // <a href="https://www.flaticon.com/free-icons/stop-button" title="stop button icons">Stop button icons created by Pixel perfect - Flaticon</a>
 import React, { useEffect, useState, Component } from "react";
 import Coffee from "./Coffee";
+import { useFetch } from "./useFetch";
 
 export class Navbar extends Component {
   constructor(props) {
@@ -13,9 +14,6 @@ export class Navbar extends Component {
     };
   }
 
-  componentDidMount() {
-    
-  }
 
   render() {
     return (
@@ -72,12 +70,14 @@ export class Navbar extends Component {
                   <span className="badge">New</span>
                 </a>
               </li>
-             
+
               <li>
                 {/* //TODO: Set a refresh button here */}
 
-                <a className="justify-between">Refresh
-                <span className="badge">⎋</span></a>
+                <a className="justify-between">
+                  Refresh
+                  <span className="badge">⎋</span>
+                </a>
               </li>
               <li>
                 <Coffee />
