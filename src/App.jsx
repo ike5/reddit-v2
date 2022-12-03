@@ -96,8 +96,6 @@ export default function App() {
     response.data.children.map((children, index) => {
       // console.log(children.data.link_title);
       const p = setRandomPositions();
-      // rows.push(<Cube position={p} key={index} />);
-      // rows.push(<Cube position={p} key={index} />)
       rows[index] = <Cube position={p} key={index} />;
     });
   }
