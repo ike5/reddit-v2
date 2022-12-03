@@ -51,6 +51,7 @@ function Cube(props) {
         modal.modalOpen ? close() : open();
         setDisabled(true);
         audio_ping.play();
+        console.log(props.children.data.link_title);
       }}
       castShadow
       ref={ref}
@@ -78,7 +79,7 @@ function Clouds() {
   );
 }
 
-function getFile(myCallback) {
+function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
   req.open("GET", "https://www.reddit.com/r/AskReddit/comments.json?limit=10");
   req.onload = function () {
@@ -87,7 +88,13 @@ function getFile(myCallback) {
       let arr = [];
       obj.data.children.map((children, index) => {
         // console.log(children.data.link_title);
-        arr.push(<Cube position={setRandomPositions()} key={index}/>);
+        arr.push(
+          <Cube
+            position={setRandomPositions()}
+            key={index}
+            children={children}
+          />
+        );
       });
       myCallback(arr);
     } else {
@@ -101,7 +108,7 @@ export default function App() {
   const [rows, setRows] = useState();
 
   useEffect(() => {
-    getFile(setRows);
+    renderCubes(setRows);
   }, []);
 
   console.log(rows);
@@ -119,9 +126,7 @@ export default function App() {
         <Sky sunPosition={[1, 3, 2]} />
         <Clouds />
         <Suspense>
-          <Physics gravity={[0, 0, 0]}>
-            {rows}
-          </Physics>
+          <Physics gravity={[0, 0, 0]}>{rows}</Physics>
         </Suspense>
         <OrbitControls autoRotate autoRotateSpeed={0.2} />
       </Canvas>
