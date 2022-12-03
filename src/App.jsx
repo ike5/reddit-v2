@@ -65,13 +65,25 @@ function Cube(props) {
       />
       {openCard ? (
         <Html distanceFactor={10}>
-          <div className="card w-96 bg-neutral text-neutral-content">
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">{props.children.data.link_title}</h2>
-              <p>{props.children.data.body}</p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Accept</button>
-                <button className="btn btn-ghost">Deny</button>
+          <div className="indicator">
+            <span className="indicator-item indicator-top indicator-center badge badge-primary">
+             ⬆ {props.children.data.ups + props.children.data.downs}
+            </span>
+            <div className="card w-96 bg-neutral text-neutral-content">
+              <div className="card-body items-center text-center">
+                <h2 className="card-title">{props.children.data.title}</h2>
+                <p>{props.children.data.body}</p>
+                <div className="card-actions justify-end">
+                  <button
+                    onClick={() => setOpenCard(false)}
+                    className="btn btn-warning"
+                  >
+                    Close
+                  </button>
+                  <button className="btn btn-outline">
+                    Comments {props.children.data.num_comments}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -98,10 +110,7 @@ function Clouds() {
 
 function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
-  req.open(
-    "GET",
-    "https://www.reddit.com/r/AmITheAsshole/comments.json?limit=100"
-  );
+  req.open("GET", "https://www.reddit.com/r/AskReddit/rising.json?limit=100");
   req.onload = function () {
     if (req.status == 200) {
       let obj = JSON.parse(req.responseText);
