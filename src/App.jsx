@@ -46,6 +46,7 @@ function Cube(props) {
   const [disabled, setDisabled] = useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [containsImage, setContainsImage] = useState(false);
+  const [openHero, setOpenHero] = useState(false);
 
   return (
     <mesh
@@ -70,33 +71,60 @@ function Cube(props) {
             <span className="indicator-item indicator-top indicator-center badge badge-primary">
               ⬆ {props.children.data.ups + props.children.data.downs}
             </span>
-            <div className="card card-compact w-96 bg-neutral text-neutral-content">
-              {props.children.data.post_hint == "image" ? (
-                <figure>
+            {openHero ? (
+              <div className="hero min-w-fit bg-base-200 rounded-3xl">
+                <div className="hero-content flex-col lg:flex-row">
                   <img
-                    src={props.children.data.url_overridden_by_dest}
-                    alt="Shoes"
+                    src="https://placeimg.com/260/400/arch"
+                    className="max-w-sm rounded-lg shadow-2xl"
                   />
-                </figure>
-              ) : (
-                <></>
-              )}
-              <div className="card-body items-center text-center">
-                <h2 className="card-title">{props.children.data.title}</h2>
-                <p>{props.children.data.body}</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-outline">
-                    Comments {props.children.data.num_comments}
-                  </button>
-                  <button
-                    onClick={() => setOpenCard(false)}
-                    className="btn btn-warning"
-                  >
-                    Close
-                  </button>
+                  <div>
+                    <h1 className="text-5xl font-bold">ID: {props.children.data.id}</h1>
+                    <p className="py-6">
+                      Provident cupiditate voluptatem et in. Quaerat fugiat ut
+                      assumenda excepturi exercitationem quasi. In deleniti
+                      eaque aut repudiandae et a id nisi.
+                    </p>
+                    <button onClick={() => {
+                      setOpenHero(false)
+                    }} className="btn btn-primary">Close</button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              <div className="card card-compact w-96 bg-neutral text-neutral-content">
+                {props.children.data.post_hint == "image" ? (
+                  <figure>
+                    <img
+                      src={props.children.data.url_overridden_by_dest}
+                      alt="Shoes"
+                    />
+                  </figure>
+                ) : (
+                  <></>
+                )}
+                <div className="card-body items-center text-center">
+                  <h2 className="card-title">{props.children.data.title}</h2>
+                  <p>{props.children.data.body}</p>
+                  <div className="card-actions justify-end">
+                    <button
+                      onClick={() => {
+                        setOpenHero(true);
+                      }}
+                      className="btn btn-outline"
+                    >
+                      Comments {props.children.data.num_comments}
+                    </button>
+                    <button
+                      onClick={() => setOpenCard(false)}
+                      className="btn btn-warning"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </Html>
       ) : (
@@ -121,10 +149,7 @@ function Clouds() {
 
 function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
-  req.open(
-    "GET",
-    "https://www.reddit.com/r/AskReddit/rising.json?limit=20"
-  );
+  req.open("GET", "https://www.reddit.com/r/AskReddit/rising.json?limit=20");
   req.onload = function () {
     if (req.status == 200) {
       let obj = JSON.parse(req.responseText);
