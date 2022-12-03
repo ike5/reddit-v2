@@ -6,6 +6,7 @@ import "../src/index.css";
 import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
 import Modal from "./components/Modal/index";
+import { init } from "@dimforge/rapier3d-compat";
 
 //TODO: Manage modal after clicking on box
 const modal = {
@@ -30,29 +31,6 @@ function setRandomRotation() {
     MathUtils.randFloat(0, 1),
   ];
 }
-
-let rows = [];
-async function init() {
-  const response = await fetch(
-    `https://www.reddit.com/r/AskReddit/comments.json?limit=100`
-  )
-    .then((res) => {
-      return res.json();
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  response.data.children.map((children, index) => {
-    console.log(children.data.link_title)
-    const p = setRandomPositions();
-    rows.push(<Cube position={p} key={index} />);
-  });
-  console.log(response);
-  return response;
-}
-init();
-
 
 // Credit to: https://freesound.org/people/LittleRainySeasons/
 let audio_ping = new Howl({
@@ -101,6 +79,30 @@ function Clouds() {
 }
 
 export default function App() {
+  const rows = [];
+
+  async function init() {
+    const response = await fetch(
+      `https://www.reddit.com/r/AskReddit/comments.json?limit=2`
+    )
+      .then((res) => {
+        return res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      console.table(response)
+    response.data.children.map((children, index) => {
+      // console.log(children.data.link_title);
+      const p = setRandomPositions();
+      // rows.push(<Cube position={p} key={index} />);
+      // rows.push(<Cube position={p} key={index} />)
+      rows[index] = <Cube position={p} key={index} />;
+    });
+  }
+  init();
+
   return (
     <>
       <Canvas
