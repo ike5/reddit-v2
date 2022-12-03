@@ -79,7 +79,7 @@ function Clouds() {
 }
 
 export default function App() {
-  const rows = [];
+  const [rows, setRows] = useState([])
 
   async function init() {
     const response = await fetch(
