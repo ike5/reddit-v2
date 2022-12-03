@@ -123,7 +123,7 @@ function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
   req.open(
     "GET",
-    "https://www.reddit.com/r/mildlyinteresting/rising.json?limit=20"
+    "https://www.reddit.com/r/AskReddit/rising.json?limit=20"
   );
   req.onload = function () {
     if (req.status == 200) {

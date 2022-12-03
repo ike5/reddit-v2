@@ -13,31 +13,6 @@ function Grid() {
     loop: true,
   });
 
-  // async function postData(url = "") {
-  //   // Default options are marked with *
-  //   const response = await fetch(url, {
-  //     method: "GET", // *GET, POST, PUT, DELETE, etc.
-  //     mode: "no-cors", // no-cors, *cors, same-origin
-  //     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  //     credentials: "same-origin", // include, *same-origin, omit
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       // 'Content-Type': 'application/x-www-form-urlencoded',
-  //     },
-  //     redirect: "follow", // manual, *follow, error
-  //     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  //   });
-  //   return response.json;
-  // }
-
-  // postData("https://www.reddit.com/r/AskReddit/comments.json")
-  //   .then((stuff) => {
-  //     console.log(stuff);
-  //   })
-  //   .catch((e) => console.error(e));
-
-
-
   return (
     <div className="my-container gap-4 place-content-center">
       <div className="navbar sticky top-0 z-50">
