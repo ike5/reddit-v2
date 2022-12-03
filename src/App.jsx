@@ -45,6 +45,7 @@ function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));
   const [disabled, setDisabled] = useState(false);
   const [openCard, setOpenCard] = useState(false);
+  const [containsImage, setContainsImage] = useState(false);
 
   return (
     <mesh
@@ -67,21 +68,31 @@ function Cube(props) {
         <Html distanceFactor={10}>
           <div className="indicator">
             <span className="indicator-item indicator-top indicator-center badge badge-primary">
-             ⬆ {props.children.data.ups + props.children.data.downs}
+              ⬆ {props.children.data.ups + props.children.data.downs}
             </span>
-            <div className="card w-96 bg-neutral text-neutral-content">
+            <div className="card card-compact w-96 bg-neutral text-neutral-content">
+              {props.children.data.post_hint == "image" ? (
+                <figure>
+                  <img
+                    src={props.children.data.url_overridden_by_dest}
+                    alt="Shoes"
+                  />
+                </figure>
+              ) : (
+                <></>
+              )}
               <div className="card-body items-center text-center">
                 <h2 className="card-title">{props.children.data.title}</h2>
                 <p>{props.children.data.body}</p>
                 <div className="card-actions justify-end">
+                  <button className="btn btn-outline">
+                    Comments {props.children.data.num_comments}
+                  </button>
                   <button
                     onClick={() => setOpenCard(false)}
                     className="btn btn-warning"
                   >
                     Close
-                  </button>
-                  <button className="btn btn-outline">
-                    Comments {props.children.data.num_comments}
                   </button>
                 </div>
               </div>
@@ -110,7 +121,10 @@ function Clouds() {
 
 function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
-  req.open("GET", "https://www.reddit.com/r/AskReddit/rising.json?limit=100");
+  req.open(
+    "GET",
+    "https://www.reddit.com/r/mildlyinteresting/rising.json?limit=20"
+  );
   req.onload = function () {
     if (req.status == 200) {
       let obj = JSON.parse(req.responseText);
