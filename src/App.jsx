@@ -89,7 +89,7 @@ function Cube(props) {
                 <div className="card-actions justify-end">
                   <button
                     onClick={() => {
-                      setOpenHero(true);
+                      
                     }}
                     className="btn btn-outline"
                   >
