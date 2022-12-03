@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Sky, Cloud } from "@react-three/drei";
+import { OrbitControls, Sky, Cloud, Html } from "@react-three/drei";
 import { MathUtils } from "three";
 import "../src/index.css";
 import { Howl } from "howler";
@@ -44,14 +44,15 @@ let audio_ping = new Howl({
 function Cube(props) {
   const [ref, api] = useBox(() => ({ mass: 1, ...props }));
   const [disabled, setDisabled] = useState(false);
+  const [openCard, setOpenCard] = useState(false);
 
   return (
     <mesh
       onClick={() => {
         modal.modalOpen ? close() : open();
         setDisabled(true);
+        setOpenCard(!openCard);
         audio_ping.play();
-        console.log(props.children.data.link_title);
       }}
       castShadow
       ref={ref}
@@ -62,6 +63,22 @@ function Cube(props) {
         opacity={disabled ? 0.5 : 1}
         color={disabled ? "gray" : "orange"}
       />
+      {openCard ? (
+        <Html distanceFactor={10}>
+          <div className="card w-96 bg-neutral text-neutral-content">
+            <div className="card-body items-center text-center">
+              <h2 className="card-title">{props.children.data.link_title}</h2>
+              <p>{props.children.data.body}</p>
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary">Accept</button>
+                <button className="btn btn-ghost">Deny</button>
+              </div>
+            </div>
+          </div>
+        </Html>
+      ) : (
+        <></>
+      )}
     </mesh>
   );
 }
@@ -81,7 +98,10 @@ function Clouds() {
 
 function renderCubes(myCallback) {
   let req = new XMLHttpRequest();
-  req.open("GET", "https://www.reddit.com/r/AskReddit/comments.json?limit=10");
+  req.open(
+    "GET",
+    "https://www.reddit.com/r/AmITheAsshole/comments.json?limit=100"
+  );
   req.onload = function () {
     if (req.status == 200) {
       let obj = JSON.parse(req.responseText);

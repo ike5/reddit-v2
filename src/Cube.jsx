@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Howl } from "howler";
+import { Html } from "@react-three/drei";
 
 // Credit to: https://freesound.org/people/LittleRainySeasons/
 let audio_ping = new Howl({
@@ -29,6 +30,9 @@ function Cube(props) {
         opacity={disabled ? 0.5 : 1}
         color={disabled ? "gray" : "orange"}
       />
+      <Html>
+        <h1>i will track and follow this cube</h1>
+      </Html>
     </mesh>
   );
 }

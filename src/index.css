@@ -73,3 +73,9 @@ body {
   grid-row: 3/4;
   background-color: darkgray;
 } */
+
+
+.link-title-text{
+  text-align: left;
+  color: black;
+}
