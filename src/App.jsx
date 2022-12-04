@@ -7,6 +7,8 @@ import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
 import Modal from "./components/Modal/index";
 import { init } from "@dimforge/rapier3d-compat";
+import Tree from "./Tree"
+import Presents1 from "./Presents1"
 
 //TODO: Manage modal after clicking on box
 const modal = {
@@ -87,12 +89,7 @@ function Cube(props) {
                 <h2 className="card-title">{props.children.data.title}</h2>
                 <p>{props.children.data.body}</p>
                 <div className="card-actions justify-end">
-                  <button
-                    onClick={() => {
-                      
-                    }}
-                    className="btn btn-outline"
-                  >
+                  <button onClick={() => {}} className="btn btn-outline">
                     Comments {props.children.data.num_comments}
                   </button>
                   <button
@@ -173,7 +170,9 @@ export default function App() {
         <Sky sunPosition={[1, 3, 2]} />
         <Clouds />
         <Suspense>
-          <Physics gravity={[0, 0, 0]}>{rows}</Physics>
+          <Physics gravity={[0, 0, 0]}>
+            <Presents1 />
+          </Physics>
         </Suspense>
         <OrbitControls autoRotate autoRotateSpeed={0.2} />
       </Canvas>

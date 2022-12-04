@@ -4,6 +4,7 @@ import Instances from "./Instances";
 import Navbar from "./Navbar";
 import { Howl } from "howler";
 import Footer from "./Footer";
+import Tree from "./Tree"
 
 function Grid() {
   // credit to: https://pixabay.com/music/synthwave-black-knight-121105/
@@ -22,7 +23,6 @@ function Grid() {
       <div className="main pl-2 pr-2">
         <App />
       </div>
-      <Footer />
     </div>
   );
 }
