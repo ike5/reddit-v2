@@ -7,8 +7,10 @@ import { Howl } from "howler";
 import { Physics, useBox, usePlane } from "@react-three/cannon";
 import Modal from "./components/Modal/index";
 import { init } from "@dimforge/rapier3d-compat";
-import Tree from "./Tree"
-import Presents1 from "./Presents1"
+import Tree from "./Tree";
+import Presents1 from "./Presents1";
+import Presents2 from "./Presents2";
+import Presents3 from "./Presents3";
 
 //TODO: Manage modal after clicking on box
 const modal = {
@@ -170,11 +172,9 @@ export default function App() {
         <Sky sunPosition={[1, 3, 2]} />
         <Clouds />
         <Suspense>
-          <Physics gravity={[0, 0, 0]}>
-            <Presents1 />
-          </Physics>
+          <Physics gravity={[0, 0, 0]}>{rows}</Physics>
         </Suspense>
-        <OrbitControls autoRotate autoRotateSpeed={0.2} />
+        <OrbitControls autoRotate autoRotateSpeed={0} />
       </Canvas>
 
       {modal.modalOpen && (

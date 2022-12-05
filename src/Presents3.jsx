@@ -9,7 +9,7 @@ title: Stylised Gifts Christmas - Animated
 import React, { useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 
-export function Model(props) {
+export default function Model(props) {
   const group = useRef();
   const { nodes, materials, animations } = useGLTF(
     "/stylised_gifts_christmas_-_animated.glb"
